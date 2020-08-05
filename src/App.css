@@ -51,7 +51,8 @@ body {
   border: 1px solid black;
   line-height: var(--cellHeight);
   text-align: center;
-  font-size: 1cm;
+  font-size: 1.5cm;
+  font-weight: 700;
   margin: 0.2cm;
 }
 .cellHorizontal {
@@ -60,7 +61,7 @@ body {
   left: 5%;
   bottom: 0cm;
   width: 90%;
-  border-top: 0.5px dotted gray;
+  border-top: 0.5px dotted #80808059;
 }
 .cellVertical {
   position: absolute;
@@ -68,7 +69,7 @@ body {
   top: 5%;
   right: 0cm;
   height: 90%;
-  border-left: 0.5px dotted gray;
+  border-left: 0.5px dotted #80808059;
 }
 
 @media print {
