@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 const sample = `《咏鹅》
@@ -9,18 +9,28 @@ const sample = `《咏鹅》
 红掌拨清波。 
 `;
 
+class AppContainer extends React.Component {
+  render() {
+    return <App />;
+  }
+}
+
 function App() {
+  const [text, updateText] = useState(sample);
   return (
-    <div className="App">
+    <>
       <div className="source">
-        <textarea readOnly={true} value={sample} />
+        <textarea
+          rows="20"
+          cols="10"
+          value={text}
+          onInput={(e) => e.target.value && updateText(e.target.value)}
+        />
       </div>
       <div className="preview">
-        {sample.split("\n").map((l, i) => (
-          <Line key={i} line={l} />
-        ))}
+        {text && text.split("\n").map((l, i) => <Line key={i} line={l} />)}
       </div>
-    </div>
+    </>
   );
 }
 
@@ -38,4 +48,4 @@ function Cell({ ch }) {
   return <div className="cell">{ch}</div>;
 }
 
-export default App;
+export default AppContainer;
