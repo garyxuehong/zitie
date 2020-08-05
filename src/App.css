@@ -11,11 +11,18 @@
   --a4height: 29.7cm;
   --cellWidth: 2cm;
   --cellHeight: 2cm;
+  --ratio: 1.42;
 }
 
 body {
   display: flex;
   font-family: "KaiTi_GB2312";
+}
+
+@media screen and (max-width:961px)  {
+  body {
+    display: block;
+  }
 }
 
 .source {
@@ -28,6 +35,17 @@ body {
   border: 1px solid black;
   width: var(--a4width);
   height: var(--a4height);
+}
+
+@media screen and (max-width:961px)  {
+  .source {
+    display: block;
+  }
+  .preview {
+    display: block;
+    width: 100%;
+    height: calc(100vw * var(--ratio));
+  }
 }
 
 .line {
@@ -43,6 +61,11 @@ body {
   border-bottom: 1px solid black;
 }
 
+.dlinepy {
+  font-weight: 600;
+  text-align: center;
+}
+
 .cellInner {
   display: inline-block;
   position: relative;
@@ -55,6 +78,17 @@ body {
   font-weight: 700;
   margin: 0.2cm;
 }
+
+@media screen and (max-width:961px)  {
+  .cellInner {
+    width: calc(100vw/10);
+    height: calc(100vw/10);
+    margin: 2px;
+    line-height: calc(100vw/10);
+    font-size: 80%;
+  }
+}
+
 .cellHorizontal {
   position: absolute;
   top: 50%;

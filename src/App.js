@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
-function toPinYin(ch) {
-  return "";
-}
+import pinyin from "chinese-to-pinyin";
+
+console.log(pinyin("我"));
 
 const CELL_COUNT = 8;
 
@@ -22,33 +22,33 @@ class AppContainer extends React.Component {
   }
 }
 
+function tryPinyin(ch) {
+  try {
+    return pinyin(ch);
+  } catch (e) {
+    return "";
+  }
+}
+
+function prepareData(t) {
+  const data = t
+    .trim()
+    .split("\n")
+    .map((line) => {
+      return pad(line.split("")).map((ch) => {
+        return { ch, py: tryPinyin(ch) };
+      });
+    });
+  return data;
+}
+
 function App() {
   let [text, updateText] = useState(sample);
   let [data, updateData] = useState(prepareData(sample));
-  function prepareData(t) {
-    const data = t
-      .trim()
-      .split("\n")
-      .map((line) => {
-        return pad(line.split("")).map((ch) => {
-          return { ch, py: "" };
-        });
-      });
-    return data;
-  }
-  function convertData(t) {
-    const newData = prepareData(t);
-    newData.forEach(line=>{
-      line.forEach(async c=>{
-        c.py = await toPinYin(c.ch);
-      });
-    });
-    updateData(newData);
-  }
   function onTextChange(e) {
     const newText = e.target.value;
     updateText(newText);
-    convertData(newText);
+    updateData(prepareData(text));
   }
   return (
     <>
@@ -62,7 +62,9 @@ function App() {
         />
       </div>
       <div className="preview">
-        {data.map((l, i) => <Line key={i} line={l} />)}
+        {data.map((l, i) => (
+          <Line key={i} line={l} />
+        ))}
       </div>
     </>
   );
@@ -90,7 +92,7 @@ function Cell({ c }) {
   return (
     <div className="cell">
       <div className="dline" />
-      <div className="dline">{c.py}</div>
+      <div className="dline dlinepy">{c.py}</div>
       <div className="dline" />
       <div className="cellInner">
         <div className="cellHorizontal" />
