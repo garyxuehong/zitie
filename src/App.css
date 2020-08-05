@@ -1,11 +1,22 @@
-.App {
+@page  
+{ 
+    size: A4;
+    margin: 25mm 25mm 25mm 25mm;  
+    header: '';
+    footer: '';
+} 
+
+:root {
+  --a4width: 21cm;
+  --a4height: 29.7cm;
 }
 
 .preview {
+  display: block;
+  position: relative;
   border: 1px solid black;
-  width: 21cm;
-  height: 29.7cm;
-  margin: 30mm 45mm 30mm 45mm;
+  width: var(--a4width);
+  height: var(--a4height);
 }
 
 .line {
@@ -13,4 +24,17 @@
 
 .cell {
   display: inline-block;
+}
+
+@media print {
+  body, body *{
+    margin: 0px;
+    padding: 0px;
+  }
+  .source {
+    display: none;
+  }
+  .preview {
+    display: block;
+  }
 }
