@@ -61,8 +61,9 @@ function pad(arChars) {
 function Cell({ ch }) {
   return (
     <div className="cell">
-      <div className="dline1" />
-      <div className="dline2" />
+      <div className="dline" />
+      <div className="dline" />
+      <div className="dline" />
       <div className="cellInner">
         <div className="cellHorizontal" />
         <div className="cellVertical" />
