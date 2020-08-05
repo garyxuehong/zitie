@@ -45,7 +45,17 @@ function Line({ line }) {
 }
 
 function Cell({ ch }) {
-  return <div className="cell">{ch}</div>;
+  return ch.trim() ? (
+    <div className="cell">
+      <div className="dline1" />
+      <div className="dline2" />
+      <div className="cellInner">
+        <div className="cellHorizontal" />
+        <div className="cellVertical" />
+        {ch}
+      </div>
+    </div>
+  ) : null;
 }
 
 export default AppContainer;
