@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
+function toPinYin(ch) {
+  return "";
+}
 
 const CELL_COUNT = 8;
 
@@ -21,7 +24,32 @@ class AppContainer extends React.Component {
 
 function App() {
   let [text, updateText] = useState(sample);
-  text = text.trim();
+  let [data, updateData] = useState(prepareData(sample));
+  function prepareData(t) {
+    const data = t
+      .trim()
+      .split("\n")
+      .map((line) => {
+        return pad(line.split("")).map((ch) => {
+          return { ch, py: "" };
+        });
+      });
+    return data;
+  }
+  function convertData(t) {
+    const newData = prepareData(t);
+    newData.forEach(line=>{
+      line.forEach(async c=>{
+        c.py = await toPinYin(c.ch);
+      });
+    });
+    updateData(newData);
+  }
+  function onTextChange(e) {
+    const newText = e.target.value;
+    updateText(newText);
+    convertData(newText);
+  }
   return (
     <>
       <div className="source">
@@ -29,12 +57,12 @@ function App() {
           rows="20"
           cols="10"
           value={text}
-          onInput={(e) => e.target.value && updateText(e.target.value)}
-          onChange={(e) => e.target.value && updateText(e.target.value)}
+          onInput={onTextChange}
+          onChange={onTextChange}
         />
       </div>
       <div className="preview">
-        {text && text.split("\n").map((l, i) => <Line key={i} line={l} />)}
+        {data.map((l, i) => <Line key={i} line={l} />)}
       </div>
     </>
   );
@@ -43,8 +71,8 @@ function App() {
 function Line({ line }) {
   return (
     <div className="line">
-      {pad(line.split("")).map((c, i) => (
-        <Cell key={i} ch={c} />
+      {line.map((c, i) => (
+        <Cell key={i} c={c} />
       ))}
     </div>
   );
@@ -58,16 +86,16 @@ function pad(arChars) {
   return arChars;
 }
 
-function Cell({ ch }) {
+function Cell({ c }) {
   return (
     <div className="cell">
       <div className="dline" />
-      <div className="dline" />
+      <div className="dline">{c.py}</div>
       <div className="dline" />
       <div className="cellInner">
         <div className="cellHorizontal" />
         <div className="cellVertical" />
-        {ch}
+        {c.ch}
       </div>
     </div>
   );
