@@ -1,51 +1,10 @@
-@page  
-{ 
-    size: A4;
-    margin: 25mm 25mm 25mm 25mm;  
-    header: '';
-    footer: '';
-} 
-
-:root {
-  --a4width: 21cm;
-  --a4height: 29.7cm;
-  --cellWidth: 2cm;
-  --cellHeight: 2cm;
-  --ratio: 1.42;
-}
-
 body {
-  display: flex;
   font-family: "KaiTi_GB2312";
 }
 
-@media screen and (max-width:961px)  {
-  body {
-    display: block;
-  }
-}
-
-.source {
-  display: inline-block;
-}
-
-.preview {
-  display: inline-block;
-  position: relative;
-  border: 1px solid black;
-  width: var(--a4width);
-  height: var(--a4height);
-}
-
-@media screen and (max-width:961px)  {
-  .source {
-    display: block;
-  }
-  .preview {
-    display: block;
-    width: 100%;
-    height: calc(100vw * var(--ratio));
-  }
+:root {
+  --cellWidth: 2cm;
+  --cellHeight: 2cm;
 }
 
 .line {
@@ -107,15 +66,7 @@ body {
 }
 
 @media print {
-  body, body *{
-    display: block;
-    margin: 0px;
-    padding: 0px;
-  }
   .source {
     display: none;
-  }
-  .preview {
-    display: block;
   }
 }

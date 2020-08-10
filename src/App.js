@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import pinyin from "chinese-to-pinyin";
 
 console.log(pinyin("我"));
 
-const CELL_COUNT = 8;
+const CELL_COUNT = 10;
 
 const CH_PAD = <span dangerouslySetInnerHTML={{ __html: "&nbsp;" }} />;
 
@@ -24,7 +24,8 @@ class AppContainer extends React.Component {
 
 function tryPinyin(ch) {
   try {
-    return pinyin(ch);
+    const py =  pinyin(ch);
+    return py === ch ? "" : py;
   } catch (e) {
     return "";
   }
@@ -45,8 +46,9 @@ function prepareData(t) {
 function App() {
   let [text, updateText] = useState(sample);
   let [data, updateData] = useState(prepareData(sample));
-  function onTextChange(e) {
-    const newText = e.target.value;
+  let ref = useRef();
+  function onTextChange() {
+    const newText = ref.current.value;
     updateText(newText);
     updateData(prepareData(text));
   }
@@ -54,14 +56,16 @@ function App() {
     <>
       <div className="source">
         <textarea
+          ref={ref}
           rows="20"
-          cols="10"
+          cols="20"
           value={text}
           onInput={onTextChange}
           onChange={onTextChange}
         />
+        <button onClick={onTextChange}>preview</button>
       </div>
-      <div className="preview">
+      <div className="page">
         {data.map((l, i) => (
           <Line key={i} line={l} />
         ))}
