@@ -10,9 +10,9 @@
 	/* Styles for better appearance on screens only -- are reset to defaults in print styles later */
 
 	/* Reflect the paper width in the screen rendering (must match size from @page rule) */
-	height: 29.7cm;
+	width: 27.9cm;
 	/* Reflect the paper height in the screen rendering (must match size from @page rule) */
-	width: 21cm;
+	min-height: 43.2cm;
 
 	/* Reflect the actual page margin/padding on paper in the screen rendering (must match margin from @page rule) */
 	padding-left: 2cm;
@@ -25,7 +25,7 @@
 	/* You can only change the size, margins, orphans, widows and page breaks here */
 
 	/* Paper size and page orientation */
-	size: A4 portrait;
+	size: ledger portrait;
 
 	/* Margin per single side of the page */
 	margin-left: 2cm;

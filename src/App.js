@@ -6,7 +6,7 @@ console.log(pinyin("我"));
 
 const CELL_COUNT = 10;
 
-const CH_PAD = <span dangerouslySetInnerHTML={{ __html: "&nbsp;" }} />;
+const CH_PAD = ' ';
 
 const sample = `《咏鹅》
 唐·骆宾王

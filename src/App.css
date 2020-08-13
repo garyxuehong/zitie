@@ -3,11 +3,21 @@ body {
 }
 
 :root {
-  --cellWidth: 2cm;
-  --cellHeight: 2cm;
+  --padding: 2cm;
+  --page-width: 21cm;
+  --page-height: 29.7cm;
+  --font-ratio: .8;
+  --cell-count: 10;
+  --cell-margin: 0.2cm;
+  --cellWidth: calc( (var(--page-width) - 2*var(--padding))/var(--cell-count) - 2 * var(--cell-margin) );
+  --cellHeight: calc( (var(--page-width) - 2*var(--padding))/var(--cell-count) - 2 * var(--cell-margin) );
 }
 
 .line {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
 }
 
 .cell {
@@ -30,23 +40,14 @@ body {
   position: relative;
   width: var(--cellWidth);
   height: var(--cellHeight);
-  border: 1px solid black;
+  border: .01cm solid black;
   line-height: var(--cellHeight);
   text-align: center;
-  font-size: 1.5cm;
+  font-size: calc( var(--font-ratio) * var(--cellHeight) );
   font-weight: 700;
-  margin: 0.2cm;
+  margin: var(--cell-margin);
 }
 
-@media screen and (max-width:961px)  {
-  .cellInner {
-    width: calc(100vw/10);
-    height: calc(100vw/10);
-    margin: 2px;
-    line-height: calc(100vw/10);
-    font-size: 80%;
-  }
-}
 
 .cellHorizontal {
   position: absolute;
